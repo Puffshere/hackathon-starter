@@ -11,8 +11,11 @@ class App extends Component {
         super(props);
         this.state = {
             pictures: 0,
-            pictures1: 0
+            pictures1: 0,
+            cats: 0
         }
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.componentWillUpdate = this.componentWillUpdate.bind(this);
     };
 
     componentDidMount() {
@@ -34,6 +37,25 @@ class App extends Component {
     }
 
 
+    componentWillUpdate() {
+        fetch('https://api.thecatapi.com/v1/images/BkIEhN3pG?results=5')
+            .then(results => {
+                return results.json();
+            }).then(data => {
+                let cats = data.results.map((pic) => {
+                    return (
+                        <div key={pic.results}>
+                            <img src={pic.picture.medium} />
+
+                        </div>
+                    )
+                })
+                this.setState({ cats: cats });
+                
+            })
+    }
+
+
     render() {
 
         return (
@@ -41,6 +63,8 @@ class App extends Component {
 
 
             <div className="container">
+                <h1 className="text-red lost">People Cat Matchmaker</h1>
+                <hr></hr>
                 <div className="row">
                     <div className="col-lg-6">
                         <div className="card red">
@@ -50,15 +74,17 @@ class App extends Component {
                     </div>
                     <div className="col-lg-6">
                         <div className="card red">
-                            <h2>Pictures of People</h2>
-                            {this.state.pictures}
+                            <h2>Pictures of Cats</h2>
+                            {this.state.cats}
                         </div>
                     </div>
                 </div>
+                <br></br>
+                <br></br>
                 <div className="col-lg-12">
                     <div className="card">
                     <p className="centered">And here are the matches</p>
-                    <button className="btn-success">Click here to make matches</button>
+                    <button className="btn-success"onClick={() => { this.componentDidMount(); this.componentWillUpdate(); }}>Click here to make matches</button>
                     </div>
                 </div>
             </div>
