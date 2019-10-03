@@ -1,57 +1,39 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
-import ReactDOM from 'react-dom';
-
-
-
 
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pictures: 0,
-            pictures1: 0,
-            cats: 0
+            pictures: '',
+            cats: ''
         }
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.componentWillUpdate = this.componentWillUpdate.bind(this);
+        this.peoplePics = this.peoplePics.bind(this);
+        this.catImages = this.catImages.bind(this)
     };
 
-    componentDidMount() {
-        fetch('https://randomuser.me/api/?results=5')
+    peoplePics() {
+        fetch('https://randomuser.me/api/?results=1')
             .then(results => {
                 return results.json();
             }).then(data => {
-                let pictures = data.results.map((pic) => {
+                let pictures = data.results.map((pic, index) => {
                     return (
-                        <div key={pic.results}>
-                            <img src={pic.picture.medium} />
-
+                        <div key={index}>
+                            <img src={pic.picture.medium} style={{ minHeight: 125 }} />
                         </div>
                     )
                 })
                 this.setState({ pictures: pictures });
-                // console.log("state", this.state.pictures);
             })
     }
 
-
-    componentWillUpdate() {
-        fetch('https://api.thecatapi.com/v1/images/BkIEhN3pG?results=5')
-            .then(results => {
-                return results.json();
-            }).then(data => {
-                let cats = data.results.map((pic) => {
-                    return (
-                        <div key={pic.results}>
-                            <img src={pic.picture.medium} />
-
-                        </div>
-                    )
-                })
-                this.setState({ cats: cats });
-                
+    catImages() {
+        fetch('https://api.thecatapi.com/v1/images/search?')
+            .then(results => results.json())
+            .then(data => {
+                let cats = <img src={data[0].url}></img>
+                this.setState({ cats: <img src={data[0].url} style={{maxHeight: 125, minHeight: 125, maxWidth: 125, minWidth: 125}}></img> });
             })
     }
 
@@ -59,35 +41,33 @@ class App extends Component {
     render() {
 
         return (
-
-
-
-            <div className="container">
-                <h1 className="text-red lost">People Cat Matchmaker</h1>
-                <hr></hr>
-                <div className="row">
-                    <div className="col-lg-6">
-                        <div className="card red">
-                            <h1>Pictures of People</h1>
-                            {this.state.pictures}
+            <>
+                <div className="container">
+                    <h1 className="text-red lost">Whats your spirit cat</h1>
+                    <hr></hr>
+                    <div className="row">
+                        <div className="col-lg-6">
+                            <div className="card red">
+                                <h1>Human Form</h1>
+                                {this.state.pictures}
+                            </div>
+                        </div>
+                        <div className="col-lg-6">
+                            <div className="card red">
+                                <h1>Cat Form</h1>
+                                {this.state.cats}
+                            </div>
                         </div>
                     </div>
-                    <div className="col-lg-6">
-                        <div className="card red">
-                            <h2>Pictures of Cats</h2>
-                            {this.state.cats}
+                    <br></br>
+                    <br></br>
+                    <div className="col-lg-12">
+                        <div className="card">
+                            <button className="btn-success" onClick={() => { this.peoplePics(); this.catImages(); }}>Click here to find out what cat lurks in you!</button>
                         </div>
                     </div>
                 </div>
-                <br></br>
-                <br></br>
-                <div className="col-lg-12">
-                    <div className="card">
-                    <p className="centered">And here are the matches</p>
-                    <button className="btn-success"onClick={() => { this.componentDidMount(); this.componentWillUpdate(); }}>Click here to make matches</button>
-                    </div>
-                </div>
-            </div>
+            </>
         );
     }
 };
