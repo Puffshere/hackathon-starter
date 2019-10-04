@@ -4,15 +4,22 @@
 
 .centered {
     text-align: center;
-    color: blue
+    color: blue;
 }
 
 .lost {
-    text-shadow: 2px, 2px, 4px, rgb(218, 156, 156)
+    text-align: center;
+    font-family: 'Mansalva';
+    font-size: 100px;
+    }
+
+    #doggy {
+        text-shadow: 2px 2px 98px white; 
+        color: #283142b0;
 }
 
 body {
-    background-color: darkgray
+    background-color: #386686de;;
 }
 
 #clover {
@@ -20,4 +27,40 @@ body {
     max-width: 125px;
     min-height: 125px;
     min-width: 125px;
+}
+
+.house {
+    text-align: center;
+    text-shadow: 2px 2px 4px white;
+}
+
+.shed {
+    text-align: center;
+    text-shadow: 2px 2px 4px white;
+    
+}
+
+.hat {
+    font-size: 25px;
+    text-shadow: 2px 2px 4px black;
+}
+
+.slag {
+    margin-top: 15px;
+}
+
+.item4 {
+    grid-column-start: 4;
+    grid-column-end: 5;
+}
+
+.help {
+    padding-left: 39%; 
+    padding-top: 3%;
+    
+}
+
+.me {
+    padding-left: 36%;
+    padding-top: 3%;
 }

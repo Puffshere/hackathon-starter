@@ -33,7 +33,10 @@ class App extends Component {
             .then(results => results.json())
             .then(data => {
                 let cats = <img src={data[0].url}></img>
-                this.setState({ cats: <img src={data[0].url} style={{maxHeight: 125, minHeight: 125, maxWidth: 125, minWidth: 125}}></img> });
+                this.setState({
+                    cats: <img src={data[0].url} id='pipe'
+                        style={{ maxHeight: 125, minHeight: 125, maxWidth: 125, minWidth: 125 }}></img>
+                });
             })
     }
 
@@ -43,30 +46,46 @@ class App extends Component {
         return (
             <>
                 <div className="container">
-                    <h1 className="text-red lost">Whats your spirit cat</h1>
+                    <h1 className="lost text-brown" id='doggy'>What's your spirit cat?</h1>
                     <hr></hr>
                     <div className="row">
-                        <div className="col-lg-6">
-                            <div className="card red">
-                                <h1>Human Form</h1>
-                                {this.state.pictures}
+                        <div className="col-lg-6 slag">
+                            <div className="grid-container">
+                                <div className="item4">
+                                    <div className="shadow">
+                                        <h1 className='house card-header alert-primary shadow'>Human Form</h1>
+                                        {/* <p className='stump'>This is a cat's form when its mind is confused, reincarnated as an introvert!</p> */}
+                                    </div>
+                                    <br></br>
+                                    <div className="help">{this.state.pictures}</div>
+                                </div>
                             </div>
                         </div>
-                        <div className="col-lg-6">
-                            <div className="card red">
-                                <h1>Cat Form</h1>
-                                {this.state.cats}
+                        <div className="col-lg-6 slag">
+                            <div className="grid-container">
+                                <div className="item4">
+                                    <div className="shadow">
+
+                                        <h1 className='shed card-header alert-primary shadow'>Cat Form</h1>
+                                        {/* <p className='pull-right'>This is a cat's form when he let's his nuts hang!</p> */}
+                                    </div>
+                                    <br></br>
+                                    <div className="me">{this.state.cats}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <br></br>
                     <br></br>
                     <div className="col-lg-12">
-                        <div className="card">
-                            <button className="btn-success" onClick={() => { this.peoplePics(); this.catImages(); }}>Click here to find out what cat lurks in you!</button>
-                        </div>
+                        <button className="btn-primary btn-lg shadow hat btn-block" onClick={() => { this.peoplePics(); this.catImages(); }}>
+                            Click here to find out what felines lurk in people!</button>
+                        <br></br>
+                        <br></br>
+                        <hr></hr>
                     </div>
                 </div>
+
             </>
         );
     }
